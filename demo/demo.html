@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>poplayer-demo</title>
+        <link type="text/css" href="../pop.css" rel='stylesheet'>
+        <script src="../lib/jquery.min.js"></script>
+        <script src="../pop.js"></script>
+        <script>
+            $(function() {
+                $('#pop').on('click', function() {
+                    new top.PopLayer({"title": "查看信息", "moveable": false});
+                });
+            });
+        </script>
+    </head>
+    <body>
+        <button id='pop'>弹出层</button>
+    </body>
+</html>
