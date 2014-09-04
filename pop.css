@@ -5,25 +5,19 @@
     width: 100%;
     height: 100%;
     background: #000000;
-    opacity: 0.5;
+    opacity: 0.2;
     display: none;
 }
 
 .myPop {
     position: absolute;
-    top: 50%;
-    left: 50%;
-    width: 400px;
-    height: 200px;
-    background: #FFFFFF;
-    border-radius: 10px;
-    margin: -102px 0 0 -202px;
     display: none;
 }
 
 .myPop-title {
     font-size: 12px;
-    height: 18px;
+    height: 20px;
+    line-height: 20px;
     color: #FFFFFF;
     background: #3385FF;
     border-radius: 10px 10px 0 0;
@@ -35,4 +29,12 @@
 .myPop-close {
     float: right;
     cursor: pointer;
+}
+
+.myPop-content {
+    min-width: 400px;
+    min-height: 200px;
+    border-radius: 0 0 10px 10px;
+    background: #FFFFFF;
+    padding: 5px;
 }

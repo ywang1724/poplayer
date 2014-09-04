@@ -8,13 +8,17 @@
         <script src="../pop.js"></script>
         <script>
             $(function() {
-                $('#pop').on('click', function() {
-                    new top.PopLayer({"title": "查看信息", "moveable": false});
+                var i = 1;
+                $(document).delegate('.pop', 'click', function(event) {
+                    new top.PopLayer({ 
+                        "title": "查看信息" + (i++), 
+                        "content": "<button class='pop'>弹出层</button>"
+                    });
                 });
             });
         </script>
     </head>
     <body>
-        <button id='pop'>弹出层</button>
+        <button class='pop'>弹出层</button>
     </body>
 </html>

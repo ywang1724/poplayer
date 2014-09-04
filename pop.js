@@ -10,6 +10,7 @@
  * 弹出层类	PopLayer
  * 参数说明：args obj
  * @param	title		弹出层标题
+ * @param	content		弹出层内容html
  * @param 	isModal		弹出层是否模态
  * @param 	moveable 	弹出层可否移动
  * @param   document	上下文文档对象
@@ -19,6 +20,7 @@
 	function PopLayer(args) {
 		//初始化参数
 		this.title = args.title || "";
+		this.content = args.content || "";
 		this.isModal = (typeof args.isModal === "boolean") ? args.isModal : true;
 		this.moveable = (typeof args.moveable === "boolean") ? args.moveable : true;
 		this.document = args.document || document;
@@ -50,10 +52,12 @@
 		initContent: function() {
 			if (this.isModal) {
                 $("body", this.document).append(this.myModal);
+                this.myModal.show();
             }
 			$("body", this.document).append(this.myPop);
             $(".myPop-title-value", this.myPop).html(this.title);//设置标题
-            this.myModal.show();
+            this.myPop.css("top", (this.document.documentElement.clientHeight - this.myPop.height()) / 2 + "px");
+			this.myPop.css("left", (this.document.documentElement.clientWidth - this.myPop.width()) / 2 + "px");
             this.myPop.show();
 		},
 		
@@ -66,6 +70,7 @@
 				//记录按下时鼠标距离弹出层位置
 				$this.offset.height = event.clientY - $this.myPop.offset().top;
 				$this.offset.width = event.clientX - $this.myPop.offset().left;
+                return false;
 			});
 			//鼠标拖动事件
 			$(this.document).mousemove(function(e) {
@@ -80,25 +85,33 @@
                     left = left > maxL ? maxL : left;      
                     top = top < 0 ? 0 : top;
                     top = top > maxT ? maxT : top;
-                    $this.myPop.css("margin", 0);
 					$this.myPop.css("top", top + "px");
 					$this.myPop.css("left", left + "px");
 				}
+                return false;
 			}).mouseup(function(e) {
 				if ($this.isDown) {
 					$this.isDown = false;
 				}
+                return false;
             });
 			//关闭事件
 			$(".myPop-close", this.myPop).on('click', function() {
                 $this.destroy();
+                return false;
             });
 		},
         
 		getElement: function() {
 			return {
 				"myModal": $("<div class='myModal'></div>", this.document),
-				"myPop": $("<div class='myPop'><h2 class='myPop-title'><span class='myPop-title-value'></span><span class='myPop-close'>×</span></h2></div>", this.document)
+				"myPop": $("<div class='myPop'>" +
+                                "<h2 class='myPop-title'>" +
+                                    "<span class='myPop-title-value'></span>" + 
+                                    "<span class='myPop-close'>×</span>" + 
+                                "</h2>" + 
+                                "<div class='myPop-content'>" + this.content + "</div>" + 
+                           "</div>", this.document)
 			};
 		},
 		
